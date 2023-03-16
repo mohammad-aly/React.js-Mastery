@@ -3,6 +3,11 @@ import React,{useState} from 'react'
 
 export default function TextForm(props) {
 
+    // const [text, setText] = useState('Enter the text here');
+    const [text, setText] = useState('');
+    // text = "enter the text" //wrong way to write set text
+    // setText('enter the text') // correct way to set the text
+
     const hanldeUpClick = ()=>{
         // console.log("Uppercase clicked:" + text);
         const newText = text.toUpperCase();
@@ -20,16 +25,24 @@ export default function TextForm(props) {
         setText(newText);
     }
 
+    const handleCopy = ()=>{
+        var text = document.getElementById("myText");
+        text.select();
+        navigator.clipboard.writeText(text.value);
+    }
+
+    const handleExtraSpace = ()=>{
+        let newText = text.split(/[ ]+/);
+        setText(newText.join(" "));
+    }
+
     //on change should write because the event should listened what u are typing
     const handleOnChange = (event)=>{
         // console.log("On Change");
         setText(event.target.value);
     }
     
-    // const [text, setText] = useState('Enter the text here');
-    const [text, setText] = useState('');
-    // text = "enter the text" //wrong way to write set text
-    // setText('enter the text') // correct way to set the text
+    
     return (
         <>
         <div className="container">
@@ -40,6 +53,8 @@ export default function TextForm(props) {
             <button className="btn btn-primary mx-2" onClick={hanldeUpClick}>Convert to upperCase</button>
             <button className="btn btn-primary mx-2 my-2" onClick={hanldeLoClick}>Convert to LowerCase</button>
             <button className="btn btn-primary mx-2 my-2" onClick={hanldeClearClick}>Clear Text</button>
+            <button className="btn btn-primary mx-2 my-2" onClick={handleCopy}>copy Text</button>
+            <button className="btn btn-primary mx-2 my-2" onClick={handleExtraSpace}>Remove Extra Spaces</button>
         </div>
 
         <div className="container my-2">
