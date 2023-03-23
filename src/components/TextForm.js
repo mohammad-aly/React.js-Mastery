@@ -8,20 +8,29 @@ export default function TextForm(props) {
     // text = "enter the text" //wrong way to write set text
     // setText('enter the text') // correct way to set the text
 
+
     const hanldeUpClick = ()=>{
         // console.log("Uppercase clicked:" + text);
-        const newText = text.toUpperCase();
-        setText(newText);
-        // props.showAlert("Converted to UpperCase", "success");
-        text.length > 0 ? props.showAlert("Converted to UpperCase", "success") : props.showAlert("Enter some text to Convert", "danger");
+        if(!isNaN(text)){
+            props.showAlert("Please enter only text to Convert", "danger")
+        }else{
+            const newText = text.toUpperCase();
+            setText(newText);
+            // props.showAlert("Converted to UpperCase", "success");
+            text.length > 0 ? props.showAlert("Converted to UpperCase", "success") : props.showAlert("Enter some text to Convert", "danger");
+        }
     }
 
     const hanldeLoClick = ()=>{
         // console.log("Uppercase clicked:" + text);
-        const newText = text.toLowerCase();
-        setText(newText);
-        // props.showAlert("Converted to LowerCase", "success");
-        text.length > 0 ? props.showAlert("Converted to LowerCase", "success") : props.showAlert("Enter some text to Convert", "danger");
+        if(!isNaN(text)){
+            props.showAlert("Please enter only text to Convert", "danger")
+        }else{
+            const newText = text.toLowerCase();
+            setText(newText);
+            // props.showAlert("Converted to LowerCase", "success");
+            text.length > 0 ? props.showAlert("Converted to LowerCase", "success") : props.showAlert("Enter some text to Convert", "danger");
+        }
 
     }
 
@@ -68,8 +77,8 @@ export default function TextForm(props) {
 
         <div className="container my-2" style={{color: props.mode === 'dark' ? 'white' : 'black'}}>
             <h2>Your Text Summary</h2>
-            <p>{text.split(" ").length} words {text.length} characters</p>
-            <p>{0.008 * text.split(" ").length} Minutes to read</p>
+            <p>{text.trim() === '' ? 0 : text.match(/\S+/g).length} words {text.replace(/\s+/g, '').length} characters</p>
+            <p>{0.008 * (text.trim() === '' ? 0 : text.match(/\S+/g).length)} Minutes to read</p>
             <h2>Preview</h2>
             <p>{text.length > 0 ? text : "Enter some text to preview here"}</p>
         </div>
